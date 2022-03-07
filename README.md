@@ -1,7 +1,7 @@
 # pinballdate-frontend
 Frontend of final project for Code 301
 
-## WRRC 🍌
+## Domain Model
 ![Domain Model](./domain-model.png)
 
 ## Wireframe
