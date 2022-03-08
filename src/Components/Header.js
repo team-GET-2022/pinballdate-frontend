@@ -1,19 +1,22 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'
+import '../header.css';
 
 class Header extends React.Component {
 
   render() {
     return (
-      <>
-        Pinball Date
-        {/* Log-in: */}
-        <Button />
-        {/* Log-out: */}
-        <Button />
-        {/* Profile: */}
-        <Button />
-      </>
+      <div className="header">
+        <p>Pinball Date</p>
+        <div className="navButtons">
+          {/* Log-in: */}
+         <Button>Log-in</Button>
+          {/* Log-out: */}
+          <Button>Log-out</Button>
+          {/* Profile: */}
+          <Button>Profile</Button>
+        </div>
+      </div>
     );
   }
 }
