@@ -10,11 +10,11 @@ class PinballForm extends React.Component {
     let location = e.target.location.value;
     console.log(location);
 
-    let vegan = e.target.vegan.checked;
-    let adultsOnly = e.target.adultsOnly.checked;
-    let pets = e.target.pets.checked;
-    let bar = e.target.bar.checked;
-    this.props.setUserPreferences({location,vegan,adultsOnly,pets,bar});
+    let isClosed = e.target.isClosed.checked; //If true, allows closed restaurants to show up in results
+    let fiveStar = e.target.fiveStar.checked; //If true, will only show five-star restaurants (Yelp rating)
+    let affordable = e.target.affordable.checked; //If true, will only show $$ and below restaurants (Yelp $$$ scale)
+
+    this.props.setUserPreferences({location,isClosed,fiveStar,affordable});
     this.props.getPinballResults(location);
     // console.log(vegan,adultsOnly,pets, bar);
   }
@@ -28,23 +28,17 @@ class PinballForm extends React.Component {
             <Form.Control type="text" placeholder="Search for pinball..." />
           </Form.Group>
           <div className="switchesHolder">
-
-            <Form.Group controlId="vegan">
-              <Form.Check type="switch" label="vegan" />
+            <Form.Group controlId="fiveStar">
+            <Form.Check type="switch" label="Five-star only" />
             </Form.Group>
 
-            <Form.Group controlId="adultsOnly">
-            <Form.Check type="switch" label="21+" />
+            <Form.Group controlId="affordable">
+            <Form.Check type="switch" label="Affordable" />
             </Form.Group>
 
-            <Form.Group controlId="pets">
-            <Form.Check type="switch" label="pet friendly" />
+            <Form.Group controlId="isClosed">
+            <Form.Check type="switch" label="Hide closed restaurants" />
             </Form.Group>
-
-            <Form.Group controlId="bar">
-            <Form.Check type="switch" label="full bar" />
-            </Form.Group>
-
           </div>
 
           <Button variant="primary" type="submit" id="submitButton">Go!</Button>
