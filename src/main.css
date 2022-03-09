@@ -1,0 +1,21 @@
+.results{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  /* border: 1px solid green; */
+}
+
+.accordion-body{
+  display:flex;
+}
+
+h1{
+  text-align: center;
+  font-size: 8vw;
+  color: white;
+  font-style: italic;
+}
+
+body{
+  background-color: #303030;
+}
