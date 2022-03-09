@@ -1,4 +1,5 @@
 import './App.css';
+import { withAuth0 } from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './Components/Footer.js';
 import Header from './Components/Header.js';
@@ -14,4 +15,4 @@ function App() {
   </>
 }
 
-export default App;
+export default withAuth0(App);
