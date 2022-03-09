@@ -9,9 +9,9 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pinballResults: [],
-      restaurantResults: [], //Returned list of nearby restaurants relevant to selected pinball machine
-      userPreferences: [], //These are our filter criteria.  They are saved to mongo so they can be reloaded next session
+      pinballResults: [],  // Returns a list of nearby establishments with pinball machines.
+      restaurantResults: [], //Returned list of nearby restaurants relevant to selected pinball machine.
+      userPreferences: {}, //These are our filter criteria.  They are saved to mongo so they can be reloaded next session.
       selectedMachine: {}
     }
   }
@@ -48,11 +48,13 @@ class Main extends React.Component {
   // }
 
   //This is what talks to our backend to get our response back
-  getPinballResults = async () => {
+  getPinballResults = async (location) => {
     try {
-      let url = `${process.env.REACT_APP_SERVER}/pinball?searchQuery=${this.state.userPreferences.location}`;
+      console.log(this.state.userPreferences)
+      let url = `${process.env.REACT_APP_SERVER}/pinball?searchQuery=${location}`;
       let pinballResults = await axios.get(url);
       this.setState({ pinballResults: pinballResults.data });
+      console.log(this.state.pinballResults)
     } catch (error) {
       console.log("Error in getPinballResults", error.message);
     }

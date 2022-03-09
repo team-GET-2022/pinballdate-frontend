@@ -14,8 +14,8 @@ class PinballForm extends React.Component {
     let adultsOnly = e.target.adultsOnly.checked;
     let pets = e.target.pets.checked;
     let bar = e.target.bar.checked;
-
     this.props.setUserPreferences({location,vegan,adultsOnly,pets,bar});
+    this.props.getPinballResults(location);
     // console.log(vegan,adultsOnly,pets, bar);
   }
 
