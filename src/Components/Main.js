@@ -21,32 +21,21 @@ class Main extends React.Component {
     this.setState({ userPreferences });
   }
 
-  // This function grabs saved user prefernces from Mongo if they exist.
-  getUserPreferences = async () => {
-    try {
-      if (this.state.userPreferences.length > 0) {
-        let url = `${process.env.REACT_APP_SERVER}/users?${this.props.auth0.user.email}`;
-        let results = await axios.get(url)
-        this.setState({ userPreferences: results.data })
-      } else {
-        console.log('No user preferences found')
-      }
-    } catch (error) {
-      console.log('Error retrieveing preferences', error.message);
-    }
-  };
-
-  // saveUserPreferences = async (newFavorite) => {
+  // // This function grabs saved user prefernces from Mongo if they exist.
+  // getUserFavorites = async () => {
   //   try {
-  //     if (this.props.auth0.isAuthenticated) {
-  //       let url = `${process.env.REACT_APP_SERVER}/users?${this.props.auth0.user.email}`;
-  //       let newUserFavorite = await axios.post(url, newFavorite);
-
+  //     if (this.state.userPreferences.length > 0) {
+  //       let url = `${process.env.REACT_APP_SERVER}/favorites?email=${this.props.auth0.user.email}`;
+  //       let results = await axios.get(url)
+  //       this.setState({ userPreferences: results.data })
+  //     } else {
+  //       console.log('No user preferences found')
   //     }
   //   } catch (error) {
-
+  //     console.log('Error retrieveing preferences', error.message);
   //   }
-  // }
+  // };
+
 
   // This is what talks to our backend to get our response back
   getPinballResults = async (location) => {

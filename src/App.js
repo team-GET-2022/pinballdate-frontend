@@ -17,11 +17,11 @@ class App extends React.Component {
     }
   }
 
-  favoritePinballLocation = (id, name, street) => {
+  // This may be redundant and not necessary if we have the saveUserFavorites function already called?
+  favoritePinballLocation = (id) => {
     let newFavorite = {
-      name: name,
-      street: street,
-      id: id
+      email: this.props.auth0.user.email,
+      locationId: id
     };
     console.log('newFavorite is ', newFavorite);
     if (!this.state.favoritePinballLocations.includes(id)) {
@@ -30,10 +30,22 @@ class App extends React.Component {
     // console.log('favoritepinballlocations: ', this.state.favoritePinballLocations);
   };
 
+  // This function grabs saved user prefernces from Mongo if they exist.
+  getUserFavorites = async () => {
+    try {
+        let url = `${process.env.REACT_APP_SERVER}/favorites?email=${this.props.auth0.user.email}`;
+        let results = await axios.get(url)
+        this.setState({ favoritePinballLocations: results.data })
+      
+    } catch (error) {
+      console.log('Error retrieving favorites', error.message);
+    }
+  };
+
   saveUserFavorites = async (newFavorite) => {
     try {
       if (this.props.auth0.isAuthenticated) {
-        let url = `${process.env.REACT_APP_SERVER}/favorites?${this.props.auth0.user.email}`;
+        let url = `${process.env.REACT_APP_SERVER}/favorites`;
         let newUserFavorite = await axios.post(url, newFavorite);
         this.setState({
           favoritePinballLocations: [ ...this.state.favoritePinballLocations, newUserFavorite.data ]
@@ -44,10 +56,21 @@ class App extends React.Component {
     }
   }
 
+  updateUserFavorites = async (favToUpdate) =>{
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/favorites`
+      let updatedFavorite = await axios.put(url, favToUpdate);
+      let updatedFavorites = this.state.favoritePinballLocations.map(favorite => favorite === favToUpdate ? updatedFavorite.data : favorite);
+      this.setState({favoritePinballLocations: updatedFavorites})
+    } catch (error) {
+      console.log('Error updating favorites', error.message);
+    }
+  }
+
   deleteUserFavorites = async (id) => {
     try {
       if (this.props.auth0.isAuthenticated) {
-        let url = `${process.env.REACT_APP_SERVER}/favorites/${id}?${this.props.auth0.user.email}`;
+        let url = `${process.env.REACT_APP_SERVER}/favorites?email=${this.props.auth0.user.email}&locationId=${id}`;
         await axios.delete(url);
         const updatedFavorites = this.state.favoritePinballLocations.filter(favorite => favorite._id !== id);
         this.setState({
@@ -57,6 +80,10 @@ class App extends React.Component {
     } catch (error) {
       console.log('there was an error saving deleting. not deleted.', error.message);
     }
+  }
+
+  componentDidMount() {
+    this.getUserFavorites();
   }
 
   render() {
