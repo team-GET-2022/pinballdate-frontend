@@ -4,6 +4,8 @@ import ResultsDisplay from './ResultsDisplay';
 import '../main.css';
 import axios from 'axios';
 import { withAuth0 } from "@auth0/auth0-react";
+import Modal from 'react-bootstrap';
+import AboutUsModal from './AboutUsModal.js'
 
 class Main extends React.Component {
   constructor(props) {
@@ -12,7 +14,8 @@ class Main extends React.Component {
       pinballResults: [],  // Returns a list of nearby establishments with pinball machines.
       restaurantResults: [], //Returned list of nearby restaurants relevant to selected pinball machine.
       userPreferences: {}, //These are our filter criteria.  They are saved to mongo so they can be reloaded next session.
-      selectedMachine: {}
+      selectedMachine: {},
+      displayAboutUsModal: false
     }
   }
 
@@ -39,7 +42,7 @@ class Main extends React.Component {
   updateRestaurantResults = async (machine) => {
     try {
       //If we haven't selected a machine yet, the first machine will be selected. 
-      this.setState({selectedMachine: machine});
+      this.setState({ selectedMachine: machine });
 
       let url = `${process.env.REACT_APP_SERVER}/restaurants?searchQuery=${this.state.selectedMachine.lat},${this.state.selectedMachine.lon}`
       let restaurantResults = await axios.get(url);
