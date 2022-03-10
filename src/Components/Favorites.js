@@ -1,15 +1,33 @@
 import React from 'react'
 import '../favorites.css'
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
 
 class Favorites extends React.Component {
+
+  getFavoritesArray() {
+    let favoritesArray = [];
+    console.log(this.props.favoritePinballLocations);
+    this.props.favoritePinballLocations.forEach((result, i) => favoritesArray.push(
+      <Card style={{ width: '25rem' }} key={i}>
+        <Card.Body>
+        <Card.Title>
+          Location Name
+        </Card.Title>
+          <Button onClick={()=>this.props.deleteUserFavorites(result.locationId)}>Delete</Button>
+        </Card.Body>
+      </Card>
+    ))
+    return favoritesArray;
+  }
+
   render() {
     return (
-      // <p>{this.props.favoritePinballLocations}</p>
-      <ul>
-        <li>{this.props.favoritePinballLocations[0].name}</li>
-        <li>{this.props.favoritePinballLocations[0].street}</li>
-        <li>{this.props.favoritePinballLocations[0].id}</li>
-      </ul>
+      <>
+        <h1>Favorites</h1>
+        {this.getFavoritesArray()}
+      </>
     )
   }
 }
