@@ -9,9 +9,9 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pinballResults: [],
-      restaurantResults: [], //Returned list of nearby restaurants relevant to selected pinball machine
-      userPreferences: [], //These are our filter criteria.  They are saved to mongo so they can be reloaded next session
+      pinballResults: [],  // Returns a list of nearby establishments with pinball machines.
+      restaurantResults: [], //Returned list of nearby restaurants relevant to selected pinball machine.
+      userPreferences: {}, //These are our filter criteria.  They are saved to mongo so they can be reloaded next session.
       selectedMachine: {}
     }
   }
@@ -36,10 +36,11 @@ class Main extends React.Component {
     }
   };
 
-  // saveUserPreferences = async () => {
+  // saveUserPreferences = async (newFavorite) => {
   //   try {
   //     if (this.props.auth0.isAuthenticated) {
   //       let url = `${process.env.REACT_APP_SERVER}/users?${this.props.auth0.user.email}`;
+  //       let newUserFavorite = await axios.post(url, newFavorite);
 
   //     }
   //   } catch (error) {
@@ -47,22 +48,29 @@ class Main extends React.Component {
   //   }
   // }
 
-  //This is what talks to our backend to get our response back
-  getPinballResults = async () => {
+  // This is what talks to our backend to get our response back
+  getPinballResults = async (location) => {
     try {
-      let url = `${process.env.REACT_APP_SERVER}/pinball?searchQuery=${this.state.userPreferences.location}`;
+      // console.log(this.state.userPreferences)
+      let url = `${process.env.REACT_APP_SERVER}/pinball?searchQuery=${location}`;
       let pinballResults = await axios.get(url);
       this.setState({ pinballResults: pinballResults.data });
+      console.log(this.state.pinballResults);
+      this.updateRestaurantResults(this.state.pinballResults.locations[0]);
     } catch (error) {
       console.log("Error in getPinballResults", error.message);
     }
   }
 
   //This function will update the restaurant results
-  updateRestaurantResults = async () => {
+  updateRestaurantResults = async (machine) => {
     try {
-      let url = `${process.env.REACT_APP_SERVER}/restaurant?searchQuery=${this.state.selectedMachine}` // TODO:  Replace searchQuery with actual params.
+      //If we haven't selected a machine yet, the first machine will be selected. 
+      this.setState({selectedMachine: machine});
+
+      let url = `${process.env.REACT_APP_SERVER}/restaurants?searchQuery=${this.state.selectedMachine.lat},${this.state.selectedMachine.lon}`
       let restaurantResults = await axios.get(url);
+      console.log('Restaurant results: ', restaurantResults);
       this.setState({ restaurantResults: restaurantResults.data })
     } catch (error) {
       console.log('Error retrieving restaurant results', error.message);
@@ -70,7 +78,7 @@ class Main extends React.Component {
   };
 
   render() {
-    console.log(this.state.userPreferences);
+    // console.log(this.state.userPreferences);
     return (
       <>
         <h1>Pinball Date</h1>
@@ -82,6 +90,8 @@ class Main extends React.Component {
           pinballResults={this.state.pinballResults}
           userPreferences={this.state.userPreferences}
           restaurantResults={this.state.restaurantResults}
+          updateRestaurantResults={this.updateRestaurantResults}
+          favoritePinballLocation={this.props.favoritePinballLocation}
         />
       </>
     );
