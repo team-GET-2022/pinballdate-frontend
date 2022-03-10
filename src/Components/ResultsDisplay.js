@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Accordion, ListGroup } from 'react-bootstrap'
+import { Container, Accordion, ListGroup, Button } from 'react-bootstrap'
 
 
 class ResultsDisplay extends React.Component {
@@ -9,7 +9,7 @@ class ResultsDisplay extends React.Component {
     this.state = {
       selectedPinball: [],
       pinballResults: [],
-      userPreferences: []
+      // favoritePinballLocations: []
     }
   }
 
@@ -26,6 +26,7 @@ class ResultsDisplay extends React.Component {
           <Accordion.Body>
             <img src="https://place-hold.it/200x200" alt="Pinball"></img>
             <p>{result.street}</p>
+            <Button type='click' onClick={() => this.props.favoritePinballLocation(result.id)}>💗</Button>
             <ListGroup>
               {/* {this.state.pinballResults[i].location_machine_xrefs.foreach((machine, j) =>console.log(machine)} */}
             </ListGroup>
@@ -34,6 +35,17 @@ class ResultsDisplay extends React.Component {
     }
     return pinballAccordionsArray;
   }
+
+  // favoritePinballLocation = (id) => {
+  //   if (this.state.favoritePinballLocations.length === 0) {
+  //     this.setState({favoritePinballLocations: [...this.state.favoritePinballLocations, id]})
+  //     console.log('clicked favorite', id)
+  //   }
+  //   if (!this.state.favoritePinballLocations.includes(id)) {
+  //     this.setState({favoritePinballLocations: [...this.state.favoritePinballLocations, id]})
+  //     console.log(this.state.favoritePinballLocations)
+  //   } 
+  // };
 
   //This returns an array of Accordion Items by looping through our restaurantResults held in props. 
   renderRestaurantAccordions() {

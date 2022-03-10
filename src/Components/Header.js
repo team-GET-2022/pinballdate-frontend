@@ -4,6 +4,8 @@ import LoginButton from './LoginButton.js'
 import LogoutButton from './LogoutButton.js'
 import '../header.css';
 import { withAuth0 } from '@auth0/auth0-react';
+import { Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
 
@@ -18,7 +20,8 @@ class Header extends React.Component {
           {/* If user logged in, show Log-out button and profile: */}
           {this.props.auth0.user && <>
             <LogoutButton />
-            <Button>Profile</Button>
+            <Nav.Item><Link to="/" className='nav-link'><Button>Home Page</Button></Link> </Nav.Item>
+            <Nav.Item><Link to="/favorites" className='nav-link'><Button>Favorites</Button></Link> </Nav.Item>
           </>}
         </div>
       </div>
