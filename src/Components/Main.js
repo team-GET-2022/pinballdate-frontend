@@ -36,16 +36,17 @@ class Main extends React.Component {
     }
   };
 
-  saveUserPreferences = async () => {
-    try {
-      if (this.props.auth0.isAuthenticated) {
-        let url = `${process.env.REACT_APP_SERVER}/users?${this.props.auth0.user.email}`;
+  // saveUserPreferences = async (newFavorite) => {
+  //   try {
+  //     if (this.props.auth0.isAuthenticated) {
+  //       let url = `${process.env.REACT_APP_SERVER}/users?${this.props.auth0.user.email}`;
+  //       let newUserFavorite = await axios.post(url, newFavorite);
 
-      }
-    } catch (error) {
+  //     }
+  //   } catch (error) {
 
-    }
-  }
+  //   }
+  // }
 
   // This is what talks to our backend to get our response back
   getPinballResults = async (location) => {
