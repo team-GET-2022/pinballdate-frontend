@@ -12,10 +12,13 @@ class Favorites extends React.Component {
     this.props.favoritePinballLocations.forEach((result, i) => favoritesArray.push(
       <Card style={{ width: '25rem' }} key={i}>
         <Card.Body>
-        <Card.Title>
-          Location Name
-        </Card.Title>
-          <Button onClick={()=>this.props.deleteUserFavorites(result.locationId)}>Delete</Button>
+          <Card.Title>
+            {result.locationId.name}
+          </Card.Title>
+          <img src={result.locationId.location_machine_xrefs[0].machine.opdb_img} alt="Pinball" />
+          {result.locationId.street}, {result.locationId.city}  {result.locationId.state}
+          <br />{result.locationId.zip}
+          <Button onClick={() => this.props.deleteUserFavorites(result.locationId.id)}>Delete</Button>
         </Card.Body>
       </Card>
     ))
@@ -26,7 +29,9 @@ class Favorites extends React.Component {
     return (
       <>
         <h1>Favorites</h1>
-        {this.getFavoritesArray()}
+        <div className="cardHolder">
+          {this.getFavoritesArray()}
+        </div>
       </>
     )
   }
