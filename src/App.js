@@ -42,6 +42,7 @@ class App extends React.Component {
     }
   };
 
+  //Saves a new user favorites object to Mongo
   saveUserFavorites = async (newFavorite) => {
     try {
       if (this.props.auth0.isAuthenticated) {
