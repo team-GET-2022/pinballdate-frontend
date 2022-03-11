@@ -1,9 +1,26 @@
 .header{
-  display: flex;
+  /* display: flex; */
+  /* flex-direction: row; */
   color: white;
   padding: 1vw;
   width: 100%;
   /* border: 1px solid red; */
   justify-content: space-between;
   align-items: center;
+}
+
+.header button{
+  /* display: inline; */
+  /* border: 5px solid pink; */
+  margin: 0;
+  padding: 5px;
+  
+}
+
+.navButtons{
+  /* border: 5px solid green; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
 }

@@ -4,8 +4,7 @@ import ResultsDisplay from './ResultsDisplay';
 import '../main.css';
 import axios from 'axios';
 import { withAuth0 } from "@auth0/auth0-react";
-import Modal from 'react-bootstrap';
-import AboutUsModal from './AboutUsModal.js'
+import logoImage from "../images/pinball-date_logo.png"
 
 class Main extends React.Component {
   constructor(props) {
@@ -27,7 +26,6 @@ class Main extends React.Component {
   // This is what talks to our backend to get our response back
   getPinballResults = async (location) => {
     try {
-      // console.log(this.state.userPreferences)
       let url = `${process.env.REACT_APP_SERVER}/pinball?searchQuery=${location}`;
       let pinballResults = await axios.get(url);
       this.setState({ pinballResults: pinballResults.data });
@@ -54,10 +52,11 @@ class Main extends React.Component {
   };
 
   render() {
-    // console.log(this.state.userPreferences);
     return (
       <>
-        <h1>Pinball Date</h1>
+        <div className="logo">
+          <img src={logoImage} alt="Pinball Date Logo" />
+          </div>
         <PinballForm
           setUserPreferences={this.setUserPreferences}
           getPinballResults={this.getPinballResults}
