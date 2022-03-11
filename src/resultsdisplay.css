@@ -1,0 +1,21 @@
+body{
+  font-family: sans-serif;
+}
+
+.address{
+  color: #303030;
+  display: block;
+}
+
+.accordionBody img{
+  /* background-color: aqua; */
+  height: 10vh;
+}
+
+.restaurantAccordionBody img{
+  width: 60%;
+}
+
+.button{
+  display: block;
+}
