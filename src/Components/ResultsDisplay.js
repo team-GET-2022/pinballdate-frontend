@@ -25,20 +25,20 @@ class ResultsDisplay extends React.Component {
             <ListGroup>
               {this.getMachinesArray(result.location_machine_xrefs)}
             </ListGroup>
-            <div className="address">{result.street}<br/>{result.city}, {result.state}</div>
-            <Button type='click' onClick={() => this.props.saveUserFavorites({email: this.props.auth0.user.email, favoriteLocations: result})}>💗Favorite!</Button>
+            <div className="address">{result.street}<br />{result.city}, {result.state}</div>
+            <Button type='click' onClick={() => this.props.saveUserFavorites({ email: this.props.auth0.user.email, favoriteLocations: result })}>💗Favorite!</Button>
           </Accordion.Body>
         </Accordion.Item>));
     }
     return pinballAccordionsArray;
   }
 
-  getMachinesArray(xrefs){
+  getMachinesArray(xrefs) {
     let machinesArray = [];
-    xrefs.forEach((xref,i)=> machinesArray.push(
+    xrefs.forEach((xref, i) => machinesArray.push(
       <ListGroup.Item key={i}>
-      <img src={xref.machine.opdb_img} alt="pinball machine art"/>{xref.machine.name} ({xref.machine.year})
-    </ListGroup.Item>
+        <img src={xref.machine.opdb_img} alt="pinball machine art" />{xref.machine.name} ({xref.machine.year})
+      </ListGroup.Item>
     ))
     return machinesArray;
   }
@@ -53,22 +53,21 @@ class ResultsDisplay extends React.Component {
           <Accordion.Header>{result.name}</Accordion.Header>
 
           <Accordion.Body>
-            Street address: 
-           
+            Street address:
+
             <p>{result.location.address1 + ' '} </p>
             <p>{result.location.city}, {result.location.state}  {result.location.zip}</p>
           </Accordion.Body>
           <Accordion.Body>
             Distance from your address: {Math.round(result.distance * 0.000621371)} {Math.round(result.distance * 0.000621371) > 1 || Math.round(result.distance * 0.000621371) < 1 ? ' miles' : ' mile'}
           </Accordion.Body>
-          <Accordion.Body>
 
           <Accordion.Body className="restaurantAccordionBody">
 
             <img src={result.image_url} alt={result.name}></img>
             <ListGroup>
               <ListGroup.Item>
-              <div className="address">Street address: {result.location.address1}</div>
+                <div className="address">Street address: {result.location.address1}</div>
               </ListGroup.Item>
             </ListGroup>
           </Accordion.Body>
@@ -78,7 +77,7 @@ class ResultsDisplay extends React.Component {
     return restaurantAccordionsArray;
   }
 
-// use this.props.updateRestaurantResults(index of machine)
+  // use this.props.updateRestaurantResults(index of machine)
 
   render() {
     return (
