@@ -1,6 +1,7 @@
 form.pinballForm{
   /* border: 1px solid red; */
   display: flex;
+  flex-direction: column;
   width: 100%;  
   margin: auto;
   padding-left: 5vw;
@@ -13,7 +14,8 @@ form.pinballForm{
 .switchesHolder{
   /* border: 1px solid pink; */
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  width: 75%;
   align-items: center;
   color: white;
   margin: 1vh;
@@ -23,6 +25,7 @@ button{
   float: right;
   margin-left: 1vw;
   height: min-content;
+  background-color: magenta;
 }
 
 .pinballFormGroup{

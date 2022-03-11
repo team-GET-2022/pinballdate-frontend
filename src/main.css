@@ -16,6 +16,13 @@ h1{
   font-style: italic;
 }
 
+.logo{
+  text-align: center;
+  margin-bottom: 4vh;
+  /* align-items: center; */
+  /* border: 5px solid red; */
+}
+
 body{
   background-color: #303030;
 }
