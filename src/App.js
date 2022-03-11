@@ -20,7 +20,7 @@ class App extends React.Component {
     }
   }
 
-  toggleAboutUsModal= ()=> {
+  toggleAboutUsModal= () => {
     console.log("toggle modal");
     if (this.state.displayAboutUsModal===true){
       this.setState({displayAboutUsModal: false})
@@ -31,24 +31,36 @@ class App extends React.Component {
 
 
   // This may be redundant and not necessary if we have the saveUserFavorites function already called?
-  favoritePinballLocation = (id) => {
-    let newFavorite = {
-      email: this.props.auth0.user.email,
-      locationId: id
-    };
-    console.log('newFavorite is ', newFavorite);
-    if (!this.state.favoritePinballLocations.includes(id)) {
-      this.setState({ favoritePinballLocations: [...this.state.favoritePinballLocations, newFavorite] })
-    }
+  // favoritePinballLocation = (id) => {
+  //   let newFavorite = {
+  //     email: this.props.auth0.user.email,
+  //     locationId: id
+  //   };
+  //   console.log('newFavorite is ', newFavorite);
+  //   if (!this.state.favoritePinballLocations.includes(id)) {
+  //     this.setState({ favoritePinballLocations: [...this.state.favoritePinballLocations, newFavorite] })
+  //   }
     // console.log('favoritepinballlocations: ', this.state.favoritePinballLocations);
-  };
+  // };
 
   // This function grabs saved user prefernces from Mongo if they exist.
+
+  // postNewUser = async (email) => {
+  //   try {
+  //     let url = `${process.env.REACT_APP_SERVER}/user?email=${email}`;
+  //     await axios.post(url)
+  //   } catch (error) {
+  //     console.log('Error posting user', error.message)
+  //   }
+  // }
+
   getUserFavorites = async () => {
+    console.log(this.props.auth0.user.email)
     try {
       let url = `${process.env.REACT_APP_SERVER}/favorites?email=${this.props.auth0.user.email}`;
       let results = await axios.get(url)
       this.setState({ favoritePinballLocations: results.data })
+      console.log('line 63 in function', results.data);
 
     } catch (error) {
       console.log('Error retrieving favorites', error.message);
@@ -59,8 +71,11 @@ class App extends React.Component {
   saveUserFavorites = async (newFavorite) => {
     try {
       if (this.props.auth0.isAuthenticated) {
+        let userUrl = `${process.env.REACT_APP_SERVER}/user`;
+        await axios.post(userUrl, {email: this.props.auth0.user.email})
         let url = `${process.env.REACT_APP_SERVER}/favorites`;
         let newUserFavorite = await axios.post(url, newFavorite);
+        console.log(newFavorite)
         this.setState({
           favoritePinballLocations: [...this.state.favoritePinballLocations, newUserFavorite.data]
         });
@@ -70,11 +85,14 @@ class App extends React.Component {
     }
   }
 
-  updateUserFavorites = async (favToUpdate) => {
+  updateUserFavorites = async (e, favToUpdate) => {
+    e.preventDefault();
+    favToUpdate.score = e.target.score.value;
+    console.log(favToUpdate);
     try {
-      let url = `${process.env.REACT_APP_SERVER}/favorites`
+      let url = `${process.env.REACT_APP_SERVER}/favorites?email=${this.props.auth0.user.email}`
       let updatedFavorite = await axios.put(url, favToUpdate);
-      let updatedFavorites = this.state.favoritePinballLocations.map(favorite => favorite === favToUpdate ? updatedFavorite.data : favorite);
+      let updatedFavorites = this.state.favoritePinballLocations.map(favorite => favorite.id === updatedFavorite.id ? updatedFavorite : favorite);
       this.setState({ favoritePinballLocations: updatedFavorites })
     } catch (error) {
       console.log('Error updating favorites', error.message);
@@ -86,7 +104,7 @@ class App extends React.Component {
       if (this.props.auth0.isAuthenticated) {
         let url = `${process.env.REACT_APP_SERVER}/favorites?email=${this.props.auth0.user.email}&locationId=${id}`;
         await axios.delete(url);
-        const updatedFavorites = this.state.favoritePinballLocations.filter(favorite => favorite._id !== id);
+        const updatedFavorites = this.state.favoritePinballLocations.filter(favorite => favorite.id !== id);
         this.setState({
           favoritePinballLocations: updatedFavorites
         });
@@ -96,19 +114,25 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.getUserFavorites();
-  }
-
+  
   render() {
+    console.log('app state', this.state)
     return (<>
       <Router>
-        <Header toggleAboutUsModal={this.toggleAboutUsModal} />
+        <Header 
+          toggleAboutUsModal={this.toggleAboutUsModal}
+          postNewUser={this.postNewUser} />
         <Switch>
           <Route exact path="/">
-            <Main
-              favoritePinballLocation={this.favoritePinballLocation}
-            />
+            {
+              this.props.auth0.isAuthenticated ?
+              <Main
+                // favoritePinballLocation={this.favoritePinballLocation}
+                saveUserFavorites={this.saveUserFavorites}
+              />
+              : <h1>Please Log In</h1>
+
+            }
           </Route>
           <Route path="/favorites">
             <Favorites
@@ -116,6 +140,7 @@ class App extends React.Component {
               deleteUserFavorites={this.deleteUserFavorites}
               saveUserFavorites={this.saveUserFavorites}
               getUserFavorites={this.getUserFavorites}
+              updateUserFavorites={this.updateUserFavorites}
             />
           </Route>
         </Switch>

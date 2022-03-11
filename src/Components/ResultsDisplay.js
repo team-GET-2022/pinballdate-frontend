@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Accordion, ListGroup, Button } from 'react-bootstrap'
+import { withAuth0 } from '@auth0/auth0-react';
 
 class ResultsDisplay extends React.Component {
 
@@ -24,7 +25,7 @@ class ResultsDisplay extends React.Component {
           <Accordion.Body>
             <img src="https://place-hold.it/200x200" alt="Pinball"></img>
             <p>{result.street}</p>
-            <Button type='click' onClick={() => this.props.favoritePinballLocation(result)}>💗</Button>
+            <Button type='click' onClick={() => this.props.saveUserFavorites({email: this.props.auth0.user.email, favoriteLocations: result})}>💗</Button>
             <ListGroup>
               {/* {this.state.pinballResults[i].location_machine_xrefs.foreach((machine, j) =>console.log(machine)} */}
             </ListGroup>
@@ -70,4 +71,4 @@ class ResultsDisplay extends React.Component {
   }
 }
 
-export default ResultsDisplay;
+export default withAuth0(ResultsDisplay);
