@@ -44,7 +44,15 @@ class ResultsDisplay extends React.Component {
         <Accordion.Item key={i} eventKey={i}>
           <Accordion.Header>{result.name}</Accordion.Header>
           <Accordion.Body>
-            Street address: {result.location.address1}
+            Street address: 
+           
+            <p>{result.location.address1 + ' '} </p>
+            <p>{result.location.city}, {result.location.state}  {result.location.zip}</p>
+          </Accordion.Body>
+          <Accordion.Body>
+            Distance from your address: {Math.round(result.distance * 0.000621371)} {Math.round(result.distance * 0.000621371) > 1 || Math.round(result.distance * 0.000621371) < 1 ? ' miles' : ' mile'}
+          </Accordion.Body>
+          <Accordion.Body>
             <img src={result.image_url} alt={result.name}></img>
           </Accordion.Body>
         </Accordion.Item>

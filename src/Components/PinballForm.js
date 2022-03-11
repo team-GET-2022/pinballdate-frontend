@@ -25,7 +25,7 @@ class PinballForm extends React.Component {
       <>
         <Form className="pinballForm" onSubmit={this.handleSubmit}>
           <Form.Group controlId="location" className="pinballFormGroup">
-            <Form.Control type="text" placeholder="Search for pinball..." />
+            <Form.Control type="text" placeholder="Enter an address to find list of closest pinball machines within 25 miles of specified address" />
           </Form.Group>
           <div className="switchesHolder">
             <Form.Group controlId="fiveStar">
