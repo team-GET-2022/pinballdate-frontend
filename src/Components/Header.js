@@ -23,6 +23,7 @@ class Header extends React.Component {
             <Nav.Item><Link to="/" className='nav-link'><Button>Home Page</Button></Link> </Nav.Item>
             <Nav.Item><Link to="/favorites" className='nav-link'><Button>Favorites</Button></Link> </Nav.Item>
           </>}
+          <Button onClick={()=>this.props.toggleAboutUsModal()}>About Us</Button>
         </div>
       </div>
     );
