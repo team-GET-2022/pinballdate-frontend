@@ -19,6 +19,7 @@ class Header extends React.Component {
           {/* If user logged in, show Log-out button and profile: */}
           {this.props.auth0.user && <>
             <LogoutButton />
+            <Link to="/" className='nav-link'><Button>Home</Button></Link>
             <Link to="/favorites" className='nav-link'><Button>Favorites</Button></Link>
           </>}
           <Button onClick={()=>this.props.toggleAboutUsModal()}>About Us</Button>
