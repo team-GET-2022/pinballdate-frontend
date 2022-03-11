@@ -1,6 +1,6 @@
 # Project Name
 
-**Author**: Rey Mercado, Andres Mercado, Lauren Murphy, Dan Brian
+**Authors**: Rey Mercado, Andres Mercado, Lauren Murphy, Dan Brian
 **Version**: 1.0.0
 
 ## Overview
