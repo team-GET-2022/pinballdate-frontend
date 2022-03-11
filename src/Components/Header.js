@@ -15,7 +15,7 @@ class Header extends React.Component {
         <p>Pinball Date</p>
         <div className="navButtons">
           {/* If user not logged in, show Login button: */}
-          {!this.props.auth0.user && <LoginButton />}
+          {!this.props.auth0.user && <LoginButton postNewUser={this.props.postNewUser} />}
 
           {/* If user logged in, show Log-out button and profile: */}
           {this.props.auth0.user && <>

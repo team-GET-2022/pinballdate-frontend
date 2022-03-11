@@ -3,30 +3,38 @@ import '../favorites.css'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import ListGroupItem from 'react-bootstrap/ListGroupItem'
+import Form from 'react-bootstrap/Form'
 
 class Favorites extends React.Component {
 
   getFavoritesArray() {
-    this.props.getUserFavorites();
+    // this.props.getUserFavorites();
     let favoritesArray = [];
-    console.log(this.props.favoritePinballLocations);
     this.props.favoritePinballLocations.forEach((result, i) => favoritesArray.push(
       <Card style={{ width: '25rem' }} key={i}>
         <Card.Body>
           <Card.Title>
-            {result.locationId.name}
+            {result.name}
           </Card.Title>
-          <img src={result.locationId.location_machine_xrefs[0].machine.opdb_img} alt="Pinball" />
+          <img src={result.location_machine_xrefs[0].machine.opdb_img} alt="Pinball" />
 
-          {result.locationId.street}, {result.locationId.city}  {result.locationId.state}
-          <br />{result.locationId.zip}
+          {result.street}, {result.city}  {result.state}
+          <br />{result.zip}
 
           <br/> <h3>Machines Available:</h3>
           <ListGroup>
-            {this.getMachinesArray(result.locationId.location_machine_xrefs)}
+            {this.getMachinesArray(result.location_machine_xrefs)}
+            <ListGroup.Item>
+              <Form onSubmit={(e) => this.props.updateUserFavorites(e, result)}>
+                <Form.Group controlId='score'>
+                  <Form.Label>High Scores: {result.score ? result.score : ''}</Form.Label>
+                  <Form.Control type='text' />
+                </Form.Group>
+                <Button type='submit'>Add/Update</Button>
+              </Form>
+            </ListGroup.Item>
           </ListGroup>
-          <Button onClick={() => this.props.deleteUserFavorites(result.locationId.id)}>Delete</Button>
+          <Button onClick={() => this.props.deleteUserFavorites(result.id)}>Delete</Button>
         </Card.Body>
       </Card>
     ))
@@ -36,13 +44,16 @@ class Favorites extends React.Component {
   getMachinesArray(xrefs){
     let machinesArray = [];
     xrefs.forEach((xref,i)=> machinesArray.push(
-      <ListGroupItem key={i}>
+      <ListGroup.Item key={i}>
       {xref.machine.name} ({xref.machine.year})
-    </ListGroupItem>
+    </ListGroup.Item>
     ))
     return machinesArray;
   }
-
+  componentDidMount() {
+    console.log('component did mount');
+    this.props.getUserFavorites();
+  }
   render() {
     return (
       <>

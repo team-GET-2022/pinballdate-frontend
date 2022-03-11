@@ -68,6 +68,7 @@ class Main extends React.Component {
           restaurantResults={this.state.restaurantResults}
           updateRestaurantResults={this.updateRestaurantResults}
           favoritePinballLocation={this.props.favoritePinballLocation}
+          saveUserFavorites={this.props.saveUserFavorites}
         />
       </>
     );
