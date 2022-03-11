@@ -18,8 +18,8 @@ class Favorites extends React.Component {
           </Card.Title>
           <img src={result.location_machine_xrefs[0].machine.opdb_img} alt="Pinball" />
 
-          {result.street}, {result.city}  {result.state}
-          <br />{result.zip}
+          <p>{result.street}, {result.city}  {result.state}
+          <br />{result.zip}</p>
 
           <br/> <h3>Machines Available:</h3>
           <ListGroup>
@@ -30,11 +30,11 @@ class Favorites extends React.Component {
                   <Form.Label>High Scores: {result.score ? result.score : ''}</Form.Label>
                   <Form.Control type='text' />
                 </Form.Group>
-                <Button type='submit'>Add/Update</Button>
+                <Button className="updateButton"type='submit'>Add/Update</Button>
               </Form>
             </ListGroup.Item>
           </ListGroup>
-          <Button onClick={() => this.props.deleteUserFavorites(result.id)}>Delete</Button>
+          <Button variant="dark" className="deleteButton" onClick={() => this.props.deleteUserFavorites(result.id)}>Delete</Button>
         </Card.Body>
       </Card>
     ))
