@@ -7,15 +7,62 @@ body{
   display: block;
 }
 
+.accordion-body{
+  width: 80%;
+  margin: auto;
+}
+
+/* .accordion-collapse{
+  background-color: #9d02aa;
+  border: 0px solid black;
+} */
+
 .accordionBody img{
-  /* background-color: aqua; */
   height: 10vh;
 }
 
 .restaurantAccordionBody img{
-  width: 60%;
+  width: 90%;
+  margin-bottom: 1vh;
 }
 
-.button{
+.restaurantAccordionBody p{
   display: block;
+}
+
+.instructions{
+  border: 1px solid gold;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 2vh;
+  padding: 10px;
+}
+
+h3{
+  font-size: 2vh;
+  color: #9d02aa;
+  display: block;
+  overflow-x: visible;
+  white-space: nowrap;
+}
+
+.imageAndLink{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow-x: visible;
+  margin-left: 1vw;
+  width: 100%;
+}
+
+.imageAndLink button{
+  margin: 1vh;
+}
+
+.machineEntry{
+  overflow-x: visible;
+  white-space: nowrap;
+  text-align: center;
 }
