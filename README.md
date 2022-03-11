@@ -4,7 +4,7 @@
 **Version**: 1.0.0
 
 ## Overview
-Pinball Date provides users with the ability to locate pinball machines near their location and restaurants around the pinball establishments. You can make a date of it! Users can also save their favorite pinball establishments to their account using an Auth0 login.
+Pinball Date provides users with the ability to locate pinball machines near their location and restaurants around the selected pinball establishments. You can make a date of it! Users can also save their favorite pinball establishments to their account using an Auth0 login.
 
 ## Getting Started
 To begin using Pinball Date, [visit the website](https://pinballdate.netlify.app) and type an address into the search bar.
