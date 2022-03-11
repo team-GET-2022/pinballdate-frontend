@@ -19,21 +19,19 @@ class Favorites extends React.Component {
           <img src={result.location_machine_xrefs[0].machine.opdb_img} alt="Pinball" />
 
           <p>{result.street}, {result.city}  {result.state}
-          <br />{result.zip}</p>
+            <br />{result.zip}</p>
 
-          <br/> <h3>Machines Available:</h3>
+          <br /> <h3>Machines Available:</h3>
           <ListGroup>
             {this.getMachinesArray(result.location_machine_xrefs)}
-            <ListGroup.Item>
-              <Form onSubmit={(e) => this.props.updateUserFavorites(e, result)}>
-                <Form.Group controlId='score'>
-                  <Form.Label>High Scores: {result.score ? result.score : ''}</Form.Label>
-                  <Form.Control type='text' />
-                </Form.Group>
-                <Button className="updateButton"type='submit'>Add/Update</Button>
-              </Form>
-            </ListGroup.Item>
           </ListGroup>
+          <Form onSubmit={(e) => this.props.updateUserFavorites(e, result)}>
+            <Form.Group controlId='score'>
+              <Form.Label>Personal high score: {result.score ? result.score : ''}</Form.Label>
+              <Form.Control type='text' />
+            </Form.Group>
+            <Button className="updateButton" type='submit'>Add / Update</Button>
+          </Form>
           <Button variant="dark" className="deleteButton" onClick={() => this.props.deleteUserFavorites(result.id)}>Delete</Button>
         </Card.Body>
       </Card>
@@ -41,12 +39,12 @@ class Favorites extends React.Component {
     return favoritesArray;
   }
 
-  getMachinesArray(xrefs){
+  getMachinesArray(xrefs) {
     let machinesArray = [];
-    xrefs.forEach((xref,i)=> machinesArray.push(
+    xrefs.forEach((xref, i) => machinesArray.push(
       <ListGroup.Item key={i}>
-      {xref.machine.name} ({xref.machine.year})
-    </ListGroup.Item>
+        {xref.machine.name} ({xref.machine.year})
+      </ListGroup.Item>
     ))
     return machinesArray;
   }
@@ -57,7 +55,7 @@ class Favorites extends React.Component {
   render() {
     return (
       <>
-        <h1>Favorites</h1>
+        <h2>My favorite locations</h2>
         <div className="cardHolder">
           {this.getFavoritesArray()}
         </div>
