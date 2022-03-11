@@ -1,0 +1,28 @@
+.modal-content {
+  background-color:rgba(169, 169, 169, 0.904);
+}
+
+.modal-header {
+  text-align: center;
+}
+
+.card-title {
+  width: 75%;
+  margin: auto;
+  border-bottom: 3px double blue;
+}
+.aboutUs-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  padding: 1rem;
+  background-color:ivory;
+}
+
+.card img {
+  border: 3px solid slategray;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
