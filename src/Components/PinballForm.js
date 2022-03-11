@@ -16,7 +16,6 @@ class PinballForm extends React.Component {
 
     this.props.setUserPreferences({location,isClosed,fiveStar,affordable});
     this.props.getPinballResults(location);
-    // console.log(vegan,adultsOnly,pets, bar);
   }
 
 
@@ -41,7 +40,7 @@ class PinballForm extends React.Component {
             </Form.Group>
           </div>
 
-          <Button variant="primary" type="submit" id="submitButton">Go!</Button>
+          <Button style={{ backgroundColor: "#9d02aa" }} type="submit" id="submitButton">Go!</Button>
         </Form>
       </>
     );
